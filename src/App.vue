@@ -1,28 +1,51 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <datePicker 
+    :options="calendarArr" 
+    class="calendar" 
+    @handleClickDay="handleClickDay" 
+    @handlePrevMonth="handlePrevMonth"
+    @handleNextMonth="handleNextMonth"
+  />
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import datePicker from './components/date-picker'
 export default {
-  name: 'app',
+  name: 'date-picker',
+  data () {
+    return {
+      calendarArr: {
+          type: 'combination',
+          headStyle: {
+            todayBtn: 'right',
+            combination: 'center',
+            checkBtn: 'right',
+          },
+          viewStyle: {
+            day: 'right'
+          },
+          calendarData: []
+        },
+    }
+  },
   components: {
-    HelloWorld
+    datePicker
+  },
+  methods: {
+    handleClickDay () {
+
+    },
+    handlePrevMonth () {
+
+    },
+    handleNextMonth () {
+      
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
