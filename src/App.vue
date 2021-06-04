@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     handleClickDay () {
-
+      console.log(1111);
     },
     handlePrevMonth () {
 

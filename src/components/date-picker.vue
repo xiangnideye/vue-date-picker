@@ -6,10 +6,10 @@
       @handleNextMonth = 'handleNextMonth'
       @handleToday = 'handleToday'
     />
-    <ul class="calendar-week clear">
+    <ul class="calendar-week">
       <li v-for="(item, index) in calendarTitleArr" :key="index" class="week-item">{{item}}</li>
     </ul>
-    <ul class="calendar-view clear">
+    <ul class="calendar-view">
       <li v-for="(item, index) in visibleCalendar" 
         :key="index" 
         class="date-view"
@@ -83,6 +83,9 @@
 
         // 获取当前月第一天星期几
         let weekDay = currentFirstDay.getDay();
+        if (weekDay == 0) {
+          weekDay += 7;
+        }
         let startTime = currentFirstDay - (weekDay - 1) * 24 * 60 * 60 * 1000;
 
         let monthDayNum;
@@ -138,16 +141,13 @@
       // 点击回到今天
       handleToday () {
         this.time = utils.getNewDate(new Date());
-        this.returnDate();
+        // this.returnDate();
         this.$emit('handleToday');
       },
       // 点击某一天
       handleClickDay (item) {
         this.$forceUpdate();
         this.$emit('handleClickDay', item);
-        this.calendarList.map( x => { 
-          x.clickDay = false;
-        });
         this.$set(item, 'clickDay', true);
       }
     },
@@ -166,13 +166,13 @@
     background: #F9FAFC;
     box-sizing: border-box;
     .calendar-week {
+      display: flex;
       width: 100%;
       height: 46px;
       line-height: 46px;
       border: 1px solid #E4E7EA;
       border-right: none;
       .week-item {
-        float: left;
         width: 14.285%;
         text-align: center;
         font-size: 14px;
@@ -182,14 +182,16 @@
       }
     }
     .calendar-view {
+      display: flex;
+      flex-wrap: wrap;
       width: 100%;
       border-left: 1px solid #E4E7EA;
       .date-view {
-        float: left;
         width: 14.285%;
         height: 120px;
         border-right: 1px solid #E4E7EA;
         border-bottom: 1px solid #E4E7EA;
+        box-sizing: border-box;
         cursor: pointer;
         .date-day {
           padding: 8px 8px 0;
